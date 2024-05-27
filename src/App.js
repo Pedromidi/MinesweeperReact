@@ -1,8 +1,6 @@
 import "./assets/styles/App.css";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Header, Footer, ControlPanel, GamePanel } from "./components/";
-import { CARDS_LOGOS } from "./constants";
-import shuffleArray from "./helpers/shuffle.js";
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -12,20 +10,6 @@ function App() {
   const [rows, setRows] = useState(3);
   const [cols, setCols] = useState(3);
   const [numMines, setNumMines] = useState(3);
-
-  // Function to create an array of card components
-  /*const createCards = (rows, cols) => {
-    const newCards = [];
-    for (let i = 0; i < rows * cols; i++) {
-      newCards.push(<card key={i} id={i + 1} />);
-    }
-    return newCards;
-  };*/
-
-  // useEffect to update the cards whenever rows or cols change
- /* useEffect(() => {
-    setCards(createCards(rows, cols));
-  }, [rows, cols]);*/
 
   const handleGameStart = () => {
     setGameStarted(!gameStarted);
@@ -101,17 +85,6 @@ function App() {
       }
     }
     setCards(field);
-    /*
-    const field = [];
-    shuffleArray(CARDS_LOGOS)
-      .forEach((card) => {
-        field.push({
-          id: card,
-          name: card,
-        });
-      });
-    setCards(shuffleArray(field));
-    */
   }
   
   return (

@@ -10,7 +10,8 @@
     margin: 0 auto;
     padding-top: 10px;
     padding-bottom: 20px;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto;
     gap: 2px;
     display: grid;
     perspective: 1000px;
@@ -19,12 +20,15 @@
     justify-content: center;
 }
 
-#game.avancado {
-  width: 80%;
-  grid-template-columns: auto auto auto auto auto;
-}
-
 #game.intermedio {
   width: 80%;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
 }
+
+#game.avancado {
+  width: 80%;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+}
+

@@ -4,4 +4,4 @@ export const CARDS_LOGOS = [
 
 export const GAMETIME = 0;
 export const PLACEHOLDER_CARD_PATH = "/assets/images/";
-export const PLACEHOLDER_CARDBACK_PATH = `${PLACEHOLDER_CARD_PATH}ls.png`;
+export const PLACEHOLDER_CARDBACK_PATH = `${PLACEHOLDER_CARD_PATH}0.png`;

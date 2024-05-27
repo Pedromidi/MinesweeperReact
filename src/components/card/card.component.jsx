@@ -4,6 +4,7 @@ import { PLACEHOLDER_CARDBACK_PATH } from "../../constants";
 import { PLACEHOLDER_CARD_PATH } from "../../constants";
 
 function Card(card) {
+  
   return (
     <div className="card flipped" data-logo={card.name}>
       <img
