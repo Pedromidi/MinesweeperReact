@@ -1,14 +1,15 @@
 export const CARDS_LOGOS = [
-  "angular",
-  "bootstrap",
-  "html",
-  "javascript",
-  "vue",
-  "svelte",
-  "react",
-  "css",
-  "backbone",
-  "ember",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "qm",
+  "flag",
+  "mine"
 ];
 
 export const TIMEOUTGAME = 20; // seconds
