@@ -1,0 +1,10 @@
+/**********************************************
+*** © Linguagens Script > DEIS > ISEC > IPC 
+*** Jogo de Memória em React
+*** Estilos para footer.component.jsx 
+**********************************************/
+footer {
+  padding: 5px 0 2px 0;
+  font-size: xx-small;
+  text-align: center;
+}
