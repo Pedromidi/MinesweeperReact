@@ -1,7 +1,6 @@
 import "./assets/styles/App.css";
 import React, { useState, useEffect } from 'react';
 import { Header, Footer, ControlPanel, GamePanel } from "./components/";
-import { PLACEHOLDER_CARDBACK_PATH, FLAG_PATH, QM_PATH } from './constants';
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
