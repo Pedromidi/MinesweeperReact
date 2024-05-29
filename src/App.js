@@ -1,7 +1,7 @@
 import "./assets/styles/App.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header, Footer, ControlPanel, GamePanel } from "./components/";
-import checkIfIsFlipped from "./helpers/checkIfIsFlipped";
+import { PLACEHOLDER_CARDBACK_PATH, FLAG_PATH, QM_PATH } from './constants';
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -12,6 +12,12 @@ function App() {
   const [cols, setCols] = useState(3);
   const [numMines, setNumMines] = useState(3);
 
+  useEffect(() => {
+    if (gameStarted) {
+      createPanel(selectedLevel);
+    }
+  }, [gameStarted, selectedLevel]);
+
   const handleGameStart = () => {
     setGameStarted(!gameStarted);
     if (!gameStarted) createPanel(selectedLevel);
@@ -21,6 +27,30 @@ function App() {
     const { value } = event.currentTarget;
     setSelectedLevel(value);
     createPanel(value);
+  };
+
+  const handleCardClick = (id) => {
+    setCards((prevCards) =>
+      prevCards.map((card) =>
+        card.id === id ? { ...card, state: "flipped" } : card
+      )
+    );
+  };
+
+  const handleRightClick = (id) => {
+    setCards((prevCards) =>
+      prevCards.map((card) => {
+        if (card.id === id) {
+          let newState;
+          if (card.state === "placeholder") newState = "flag";
+          else if (card.state === "flag") newState = "qm";
+          else if (card.state === "qm") newState = "placeholder";
+          else newState = card.state;
+          return { ...card, state: newState };
+        }
+        return card;
+      })
+    );
   };
 
   function createPanel(level) {
@@ -82,7 +112,11 @@ function App() {
     const field = [];
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
-        field.push({ id: `${i}-${j}`, name: grid[i][j] === 'mine' ? 'mine' : `${grid[i][j]}` });
+        field.push({ 
+          id: `${i}-${j}`, 
+          name: grid[i][j] === 'mine' ? 'mine' : `${grid[i][j]}`,
+          state: "placeholder"
+         });
       }
     }
     setCards(field);
@@ -100,7 +134,10 @@ function App() {
         />
         <GamePanel 
           cards={cards} 
-          selectedLevel={selectedLevel} />
+          selectedLevel={selectedLevel} 
+          onCardClick={handleCardClick}
+          onRightClick={handleRightClick}
+        />
       </main>
       <Footer />
     </div>
