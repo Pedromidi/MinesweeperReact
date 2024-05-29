@@ -1,10 +1,7 @@
-import checkIfIsMatched from "./checkIfIsMatched";
 
-function checkIfIsFlipped(matchedCards, flippedCards, cardId) {
+function checkIfIsFlipped(flippedCards, cardId) {
      const cardHasBeenFlipped = flippedCards.filter((fc) => fc.id === cardId).length > 0;
-     const cardHasBeenMatched = checkIfIsMatched(matchedCards, cardId);
-
-     if (cardHasBeenFlipped || cardHasBeenMatched) {
+     if (cardHasBeenFlipped) {
           return true;
      }
      return false;

@@ -1,6 +1,7 @@
 import "./assets/styles/App.css";
 import React, { useState } from 'react';
 import { Header, Footer, ControlPanel, GamePanel } from "./components/";
+import checkIfIsFlipped from "./helpers/checkIfIsFlipped";
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -86,7 +87,7 @@ function App() {
     }
     setCards(field);
   }
-  
+
   return (
     <div id="container">
       <Header />
@@ -97,7 +98,9 @@ function App() {
           selectedLevel={selectedLevel}
           onLevelChange={handleLevelChange}
         />
-        <GamePanel cards={cards} selectedLevel={selectedLevel} />
+        <GamePanel 
+          cards={cards} 
+          selectedLevel={selectedLevel} />
       </main>
       <Footer />
     </div>
