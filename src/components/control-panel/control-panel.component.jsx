@@ -5,9 +5,9 @@ import { GAMETIME } from "../../constants";
 
 function ControlPanel(props) {
   const { gameStarted, selectedLevel, onGameStart, onLevelChange } = props;
-  const handleTimer = (t) => {
+  /*const handleTimer = (t) => {
     if (t === 0) onGameStart();
-  };
+  };*/
   return (
     <section id="panel-control">
       <h3 className="sr-only">Escolha do Nível</h3>
@@ -37,9 +37,7 @@ function ControlPanel(props) {
         <dl className={`list-item left${gameStarted ? " gameStarted" : ""}`}>
           <dt>Tempo de Jogo:</dt>
           <dd id="gameTime">
-            {gameStarted && (
-              <Timer timeout={GAMETIME} onTimer={handleTimer} />
-            )}
+            {gameStarted && <Timer gameStarted={gameStarted} onTimer={() => {}} />}
           </dd>
         </dl>
       </div>
