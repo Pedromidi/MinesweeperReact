@@ -11,6 +11,7 @@ function App() {
   const [rows, setRows] = useState(3);
   const [cols, setCols] = useState(3);
   const [numMines, setNumMines] = useState(3);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     if (gameStarted) {
@@ -20,6 +21,9 @@ function App() {
 
   const handleGameStart = () => {
     setGameStarted(!gameStarted);
+    if (!gameStarted) {
+      setGameOver(false); // Reset game over state when starting a new game
+    }
   };
 
   const handleLevelChange = (event) => {
@@ -28,11 +32,20 @@ function App() {
   };
 
   const handleCardClick = (id) => {
+    if (gameOver) return; // Do nothing if the game is over
+
     const [row, col] = id.split('-').map(Number);
     const card = cards.find(card => card.id === id);
     if (card.state !== 'placeholder') return;
 
-    if (grid[row][col] === 0) {
+    if (grid[row][col] === 'mine') {
+      setGameOver(true); // Set game over state if a mine is clicked
+      setCards(prevCards =>
+        prevCards.map(card =>
+          grid[row][col] === 'mine' ? { ...card, state: 'flipped' } : card
+        )
+      );
+    } else if (grid[row][col] === 0) {
       floodFill(row, col);
     } else {
       setCards(prevCards =>
@@ -44,6 +57,7 @@ function App() {
   };
 
   const handleRightClick = (id) => {
+    if (gameOver) return; // Do nothing if the game is over
     setCards(prevCards =>
       prevCards.map(card => {
         if (card.id === id) {
@@ -178,6 +192,7 @@ function App() {
           onGameStart={handleGameStart}
           selectedLevel={selectedLevel}
           onLevelChange={handleLevelChange}
+          gameOver={gameOver}
         />
         <GamePanel 
           cards={cards} 

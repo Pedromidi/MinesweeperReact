@@ -1,50 +1,27 @@
-/*import { useState, useEffect } from "react";
-
-function Timer({ timeout, onTimer }) {
-  const [seconds, setSeconds] = useState(timeout);
-  const [idInterval, setIdInterval] = useState(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds - 1);
-    }, 1000);
-    setIdInterval(interval);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    onTimer(seconds);
-    if (seconds === 0) clearInterval(idInterval);
-  }, [seconds, onTimer, idInterval]);
-
-  return <>{seconds}</>;
-}
-
-export default Timer;*/
-
 import { useState, useEffect } from "react";
 
-function Timer({ gameStarted, onTimer }) {
+function Timer({ gameStarted, onTimer, gameOver }) {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
     let interval;
-    if (gameStarted) {
+    if (gameStarted && !gameOver) {
       interval = setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds + 1);
       }, 1000);
     } else {
-      setSeconds(0);
+      clearInterval(interval);  // Clear the interval when game is not started or is over
     }
     return () => clearInterval(interval);
-  }, [gameStarted]);
+  }, [gameStarted, gameOver]); // Add gameOver to the dependency array
 
   useEffect(() => {
-    onTimer(seconds);
-  }, [seconds, onTimer]);
+    if (!gameOver) {
+      onTimer(seconds);
+    }
+  }, [seconds, onTimer, gameOver]); // Add gameOver to the dependency array
 
   return <>{seconds}</>;
 }
 
 export default Timer;
-

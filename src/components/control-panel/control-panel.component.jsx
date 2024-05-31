@@ -4,10 +4,8 @@ import Timer from "../timer/timer.component";
 import { GAMETIME } from "../../constants";
 
 function ControlPanel(props) {
-  const { gameStarted, selectedLevel, onGameStart, onLevelChange } = props;
-  /*const handleTimer = (t) => {
-    if (t === 0) onGameStart();
-  };*/
+  const { gameStarted, selectedLevel, onGameStart, onLevelChange, gameOver } = props;
+
   return (
     <section id="panel-control">
       <h3 className="sr-only">Escolha do Nível</h3>
@@ -31,13 +29,13 @@ function ControlPanel(props) {
         </button>
       </form>
       <div className="form-metadata">
-        <p id="message" role="alert" className="hide">
-          Clique em Iniciar o Jogo!
+        <p id="message" role="alert" className={`hide ${gameOver ? "show" : ""}`}>
+          {gameOver ? "Game Over!" : "Clique em Iniciar o Jogo!"}
         </p>
         <dl className={`list-item left${gameStarted ? " gameStarted" : ""}`}>
           <dt>Tempo de Jogo:</dt>
           <dd id="gameTime">
-            {gameStarted && <Timer gameStarted={gameStarted} onTimer={() => {}} />}
+            {gameStarted && <Timer gameStarted={gameStarted} onTimer={() => {}} gameOver={gameOver}/>}
           </dd>
         </dl>
       </div>
