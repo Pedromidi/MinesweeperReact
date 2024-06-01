@@ -88,10 +88,18 @@ function App() {
   };
 
   useEffect(() => {
-    if (correctlyFlaggedMines === numMines) {
+    checkGameOver();
+  }, [cards, correctlyFlaggedMines]);
+
+  const checkGameOver = () => {
+    if(gameOver) return;
+    const allFlipped = cards.every(card => card.state === 'flipped' || card.name === 'mine');
+    if (allFlipped && correctlyFlaggedMines === numMines) {
       setGameOver(true);
+    } else {
+      setGameOver(false);
     }
-  }, [correctlyFlaggedMines, numMines]);
+  };
 
   const floodFill = (row, col) => {
     const queue = [[row, col]];
