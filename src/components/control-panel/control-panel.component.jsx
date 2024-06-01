@@ -4,7 +4,7 @@ import Timer from "../timer/timer.component";
 import { GAMETIME } from "../../constants";
 
 function ControlPanel(props) {
-  const { gameStarted, selectedLevel, onGameStart, onLevelChange, gameOver } = props;
+  const { gameStarted, selectedLevel, onGameStart, onLevelChange, gameOver, correctlyFlaggedMines } = props;
 
   return (
     <section id="panel-control">
@@ -37,6 +37,7 @@ function ControlPanel(props) {
           <dd id="gameTime">
             {gameStarted && <Timer gameStarted={gameStarted} onTimer={() => {}} gameOver={gameOver}/>}
           </dd>
+          {gameOver && (<dt >Minas identificadas Corretamente:{correctlyFlaggedMines}</dt>)}
         </dl>
       </div>
     </section>

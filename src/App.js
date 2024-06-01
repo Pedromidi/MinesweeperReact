@@ -13,6 +13,8 @@ function App() {
   const [numMines, setNumMines] = useState(3);
   const [gameOver, setGameOver] = useState(false);
 
+  const [correctlyFlaggedMines, setCorrectlyFlaggedMines] = useState(0);
+
   useEffect(() => {
     if (gameStarted) {
       createPanel(selectedLevel);
@@ -23,6 +25,7 @@ function App() {
     setGameStarted(!gameStarted);
     if (!gameStarted) {
       setGameOver(false); // Reset game over state when starting a new game
+      setCorrectlyFlaggedMines(0);
     }
   };
 
@@ -62,16 +65,33 @@ function App() {
       prevCards.map(card => {
         if (card.id === id) {
           let newState;
-          if (card.state === 'placeholder') newState = 'flag';
-          else if (card.state === 'flag') newState = 'qm';
-          else if (card.state === 'qm') newState = 'placeholder';
-          else newState = card.state;
+          if (card.state === 'placeholder') {
+            newState = 'flag';
+            if (grid[card.id.split('-')[0]][card.id.split('-')[1]] === 'mine') {
+              setCorrectlyFlaggedMines(prev => prev + 1);
+            }
+          } else if (card.state === 'flag') {
+            newState = 'qm';
+            if (grid[card.id.split('-')[0]][card.id.split('-')[1]] === 'mine') {
+              setCorrectlyFlaggedMines(prev => prev - 1);
+            }
+          } else if (card.state === 'qm') {
+            newState = 'placeholder';
+          } else {
+            newState = card.state;
+          }
           return { ...card, state: newState };
         }
         return card;
       })
     );
   };
+
+  useEffect(() => {
+    if (correctlyFlaggedMines === numMines) {
+      setGameOver(true);
+    }
+  }, [correctlyFlaggedMines, numMines]);
 
   const floodFill = (row, col) => {
     const queue = [[row, col]];
@@ -193,6 +213,7 @@ function App() {
           selectedLevel={selectedLevel}
           onLevelChange={handleLevelChange}
           gameOver={gameOver}
+          correctlyFlaggedMines={correctlyFlaggedMines}
         />
         <GamePanel 
           cards={cards} 
